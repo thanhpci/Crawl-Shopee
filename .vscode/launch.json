@@ -1,0 +1,35 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "ahk2",
+            "request": "launch",
+            "name": "AutoHotkey v2 Debugger",
+            "program": "${file}",
+            "stopOnEntry": true
+        },
+
+
+        {
+            "name": "AutoHotkey Debugger",
+            "type": "autohotkey",
+            "request": "launch",
+            "program": "${file}",
+            "args": [],
+            "port": "9002-9010",
+            "variableCategories": "recommend",
+            "useOutputDebug": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "useDebugDirective": true,
+            "useAutoJumpToError": true,
+            "runtime": "C:/Program Files/AutoHotkey/v2/AutoHotkey64.exe"
+        }
+        
+
+
+    ]
+}
