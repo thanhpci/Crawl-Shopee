@@ -5,7 +5,6 @@
 ; MsgBox "HWND của trình duyệt Edge là: " browserHwnd ; Hiển thị HWND
 
 
-
 #Requires AutoHotkey v2
 #include ..\Lib\UIA.ahk
 #include ..\Lib\UIA_Browser.ahk
@@ -21,8 +20,6 @@ MsgBox "HWND của trình duyệt Edge là: " browserHwnd ; Hiển thị HWND
 ; uiElement.SetValue("https://shopee.vn") ; Set the URL
 
 ExitApp
-
-
 
 
 ; #Requires AutoHotkey v2
@@ -72,10 +69,6 @@ ExitApp
 ; }
 
 
-
-
-
-
 ; #Requires AutoHotkey v2
 ; #include ..\Lib\UIA.ahk
 ; #include ..\Lib\UIA_Browser.ahk
@@ -89,15 +82,6 @@ ExitApp
 ; browser := UIA_Edge("ahk_exe msedge.exe")
 
 ; browser.Navigate("https://shopee.vn/")
-
-
-
-
-
-
-
-
-
 
 
 ; if (WinActive("ahk_exe msedge.exe")) {
@@ -115,8 +99,6 @@ ExitApp
 ; }
 
 ; Sleep 500
-
-
 
 
 ; browser.Navigate("https://shopee.vn/")
@@ -151,14 +133,11 @@ ExitApp
 ; Sleep 3000
 
 
-
-
 ; ; elements := browser.FindElements({Type:"List", LocalizedType:"list"})
 
 
 ; x := browser.ElementFromPath("VRrK").Highlight()
 ; ; y := x.WalkTree("+2").Highlight()
-
 
 
 ; ; ; elements := browser.FindElement({Name: "shopee-top shopee-top--sticky" })
@@ -177,3 +156,63 @@ ExitApp
 ; ; }
 
 
+; for product in products {
+;     OutputDebug(product.Dump())
+; }
+
+
+; x := category_list.DumpAll()
+; OutputDebug(x)
+; category_list.WalkTree("+1").Highlight()
+
+
+
+
+
+; cur_document := browser.GetCurrentDocumentElement()
+; ToolTip "Current scroll percent: " cur_document.VerticalScrollPercent
+; while (true) {
+;     ToolTip "Current scroll percent: " cur_document.VerticalScrollPercent
+; }
+
+
+
+
+random_number := Random(20, 30)
+cur_document.VerticalScrollPercent := -random_number
+Sleep 2000
+cur_document.VerticalScrollPercent := +10 + random_number
+
+Sleep 5000
+ToolTip
+
+for product in products {
+    x .= product.Dump() "`n"
+}
+
+
+while (loop_times > 0) {
+    for percent in [10, 21.5] {
+        random_number := Random(-1.9, 1.9)
+        percent += random_number
+        cur_document.VerticalScrollPercent := percent
+        Sleep 2000
+        ToolTip "Current scroll percent: " cur_document.VerticalScrollPercent
+    }
+    while (index <= 15) {
+        product := products[index]
+        x .= product.Dump() "`n"
+        index += 1
+    }
+}
+
+
+
+
+
+                ; parts := StrSplit(k, "Type: 50007 (ListItem) Name: ")
+                ; desiredPart := StrSplit(parts[2], " LocalizedType:")
+
+                ; result := desiredPart[1]
+
+                ; MsgBox result  ; Hiển thị kết quả
