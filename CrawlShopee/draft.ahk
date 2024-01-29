@@ -166,16 +166,11 @@ ExitApp
 ; category_list.WalkTree("+1").Highlight()
 
 
-
-
-
 ; cur_document := browser.GetCurrentDocumentElement()
 ; ToolTip "Current scroll percent: " cur_document.VerticalScrollPercent
 ; while (true) {
 ;     ToolTip "Current scroll percent: " cur_document.VerticalScrollPercent
 ; }
-
-
 
 
 random_number := Random(20, 30)
@@ -207,12 +202,118 @@ while (loop_times > 0) {
 }
 
 
+; parts := StrSplit(k, "Type: 50007 (ListItem) Name: ")
+; desiredPart := StrSplit(parts[2], " LocalizedType:")
+
+; result := desiredPart[1]
+
+; MsgBox result  ; Hiển thị kết quả
+
+
+startPos := InStr(detail, "Type: 50007 (ListItem) Name: " "") + StrLen("Type: 50007 (ListItem) Name: " "") + 1
+; endPos := InStr(detail, "" " LocalizedType:") - 1
+; length := endPos - startPos
+;= result .= SubStr(detail, startPos, length)  "`n"
+
+
+; products := browser.FindElements({ ClassName: "col-xs-2-4 shopee-search-item-result__item" })
+; index := 0
+; while (index < 15) {
+;     jsCode := "(function() { var items = document.getElementsByClassName('col-xs-2-4 shopee-search-item-result__item'); var stars = items[" index "].querySelectorAll('.shopee-rating-stars__lit'); var totalWidth = 0; for (var i = 0; i < stars.length; i++) { var starWidth = stars[i].style.width; var widthValue = parseInt(starWidth); totalWidth += widthValue;} var averageStars = totalWidth / 100; return averageStars; })();"
+
+;     averageStars := browser.JSExecute(jsCode)
+
+;     MsgBox "Average stars for product " index ": " averageStars
+
+;     index++
+; }
+
+
+; ; Define the JavaScript function as a string
+; jsCode := "(void function () {function copyToClipboard(text) {var dummy = document.createElement('textarea');document.body.appendChild(dummy);dummy.value = text;dummy.select();document.execCommand('copy');document.body.removeChild(dummy);}function checkStar(index) {var items = document.getElementsByClassName('col-xs-2-4 shopee-search-item-result__item');var stars = items[index].querySelectorAll('.shopee-rating-stars__lit');var totalWidth = 0;for (var i = 0; i < stars.length; i++) {var starWidth = stars[i].style.width;var widthValue = parseFloat(starWidth);totalWidth += widthValue;}var averageStars = totalWidth / stars.length; return averageStars;}copyToClipboard(checkStar(" index "));})()"
+
+; ; Loop through the products and execute the JavaScript for each
+; products := browser.FindElements({ ClassName: "col-xs-2-4 shopee-search-item-result__item" })
+; index := 0
+; while (index < 15) {
+;     ; Replace 'index' with the actual index in the JavaScript code
+;     currentJsCode := StrReplace(jsCode, " index ", index)
+;     ; Execute the JavaScript code to copy the star rating to the clipboard
+;     browser.JSExecute(currentJsCode)
+;     index++
+; }
+
+
+#Requires AutoHotkey v2.0
+
+#Requires AutoHotkey v2.0.11
+
+#include ..\Lib\UIA.ahk
+#include ..\Lib\UIA_Browser.ahk
+
+
+Run "msedge.exe -inprivate"
+
+WinWaitActive("ahk_exe msedge.exe")
+browser := UIA_Browser()
+Sleep 200
+
+browser.Navigate("https://www.w3schools.com/")
+jsCode := "void(function(){ for(let i = 0; i < 5000; i++){ console.log(i);}})();"
+
+browser.JSExecute(jsCode)
+x := 90
+
+
+; cur_document.VerticalScrollPercent := 5
+; ToolTip "Current scroll percent: " cur_document.VerticalScrollPercent
+
+
+startPos := InStr(detail, "Type: 50007 (ListItem) Name: " "") + StrLen("Type: 50007 (ListItem) Name: " "") + 1
+endPos := InStr(detail, "" " LocalizedType:") - 1
+length := endPos - startPos
+    = result .= SubStr(detail, startPos, length) "`n"
+
+
+; if have 2 phrase " (Image) Name: ". Take the first position. Take the first positon of "LocalizedType: "graphic"". Result is from 2 phrase.
+
+
+detail := product.DumpAll()
+
+count := 0
+pos := 1
+while (pos := InStr(detail, "(Image) Name:", false, pos + 1))
+    count++
+
+if (count > 1) {
+    startPos := InStr(detail, "(Image) Name:")
+    endPos := InStr(detail, "LocalizedType: " "" "graphic" "" " ClassName:")
+    productName := SubStr(detail, startPos, endPos - startPos)
+} else {
+    productName := ""
+}
+
+
+detail := product.DumpAll()
+
+count := 0
+pos := 1
+while (pos := InStr(detail, "(Image) Name:", false, pos + 1))
+    count++
+
+if (count > 1) {
+    startPos := InStr(detail, "'(Image) Name:'")
+    endPos := InStr(detail, "'LocalizedType: " "graphic" " ClassName:'")
+    productName := SubStr(detail, startPos, endPos - startPos)
+
+} else {
+    productName := ""
+}
 
 
 
-                ; parts := StrSplit(k, "Type: 50007 (ListItem) Name: ")
-                ; desiredPart := StrSplit(parts[2], " LocalizedType:")
 
-                ; result := desiredPart[1]
 
-                ; MsgBox result  ; Hiển thị kết quả
+                ; detail := StrReplace(detail, "`n", A_Space) ; Replace newlines
+                ; detail := StrReplace(detail, "`r") ; Delete carriage
+                ; detail := StrReplace(detail, ",", A_Space)
