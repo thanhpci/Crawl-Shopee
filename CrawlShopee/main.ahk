@@ -11,6 +11,16 @@ browser := UIA_Browser()
 Sleep 5000
 
 
+; Đặt phím tắt Ctrl+Shift+F3 để đóng cửa sổ và thoát ứng dụng
+^+F3:: CloseAndExit()
+
+CloseAndExit() {
+    WinClose ("ahk_exe msedge.exe")
+    WinWaitClose ("ahk_exe msedge.exe")
+    ExitApp
+}
+
+
 Try {
     arrow_button := browser.WaitElement({ ClassName: "carousel-arrow carousel-arrow--next carousel-arrow--hint" }, 10)
     arrow_button.Click()
@@ -28,9 +38,8 @@ for item in category_list {
 
 for item in category_items {
 
-    if (A_Index = 1  ||  A_Index = 2) {
-        continue
-        ; browser.FindElement({ ClassName: "home-category-list__category-grid" }).Click()
+    if (A_Index = 1) {
+        browser.FindElement({ ClassName: "home-category-list__category-grid" }).Click()
     } else {
         browser.Navigate(item.url)
     }
@@ -39,8 +48,8 @@ for item in category_items {
     try {
 
         while (true) {
-            ; result := Array()
             products := browser.FindElements({ ClassName: "col-xs-2-4 shopee-search-item-result__item" })
+
             cur_document := browser.GetCurrentDocumentElement()
 
 
@@ -56,7 +65,7 @@ for item in category_items {
 
                 Sleep 5000
 
-                
+
                 while (true) {
 
                     try {
@@ -73,7 +82,6 @@ for item in category_items {
                         Sleep 5000
 
                         detail := product.DumpAll()
-                        ; OutputDebug(detail)
 
                         product_name := extract_name(detail)
                         product_link := extract_link(detail)
@@ -90,10 +98,10 @@ for item in category_items {
                         line := current_time "," item.Name "," product_name "," product_link "," rating_star "," product_price "," product_location "," product_revenue "`n"
                         FileAppend(line, filePath, "UTF-8")
 
-                    } 
+                    }
 
                     index++
-                    if (index - (index // 15) * 15  == 1) {
+                    if (index - (index // 15) * 15 == 1) {
                         break
                     }
                 }
@@ -101,14 +109,6 @@ for item in category_items {
             ToolTip
             cur_document.VerticalScrollPercent := 70
             Sleep 3000
-
-            ; OutputDebug(result)
-
-            ; filePath := A_ScriptDir "\RawData.csv"
-            ; for item in result {
-            ;     line := item.categoryName "," item.ratingStar "," item.detail "`n"
-            ;     FileAppend(line, filePath, "UTF-8")
-            ; }
 
 
             try {
@@ -123,11 +123,6 @@ for item in category_items {
     } catch Error {
         continue
     }
-
-
-    ; cur_document.VerticalScrollPercent := -100
-    ; Sleep 2000
-    ; browser.FindElement({ ClassName: "header-with-search__logo-section" }).Click()
 
 
 }
