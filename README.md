@@ -1,30 +1,29 @@
+# Shopee.vn Web Scraping Tool
 
-# Công Cụ Thu Thập Dữ liệu Trang Web Shopee.vn
+## Introduction
+This tool was developed to collect data from the [shopee.vn](https://shopee.vn/) website, specializing in online products. Detailed information from major product categories is collected and transformed into CSV format.
 
-## Giới Thiệu
-Công cụ này được phát triển nhằm mục đích thu thập dữ liệu từ trang web [shopee.vn](https://shopee.vn/), chuyên về các sản phẩm trực tuyến. Thông tin chi tiết từ các danh mục hàng hoá lớn được thu thập và biến đổi sang định dạng CSV.
+## Product Data Features
+Each collected product includes the following information:
+- **Crawl Time:** The moment the data was collected.
+- **Product Type:** Product classification.
+- **Product Name:** The name of the product.
+- **Link:** The URL to the product page.
+- **Average Rating:** Average user rating.
+- **Product Price:** The selling price of the product.
+- **Supply Location:** The location where the product is supplied.
+- **Total Revenue:** Total revenue at the time of crawling (calculated based on the highest price if the product has multiple price levels).
 
-## Đặc Điểm Dữ Liệu Sản Phẩm
-Mỗi sản phẩm thu thập được bao gồm các thông tin sau:
-- **Thời Điểm Crawl:** Thời điểm dữ liệu được thu thập.
-- **Loại Hàng Hoá:** Phân loại sản phẩm.
-- **Tên Sản Phẩm:** Tên gọi của sản phẩm.
-- **Đường Link:** Đường dẫn đến trang sản phẩm.
-- **Đánh Giá Trung Bình:** Đánh giá trung bình từ người dùng.
-- **Giá Sản Phẩm:** Giá bán của sản phẩm.
-- **Địa Điểm Cung Cấp:** Nơi cung cấp sản phẩm.
-- **Tổng Doanh Thu:** Doanh thu tổng cộng tại thời điểm crawl (tính theo giá trị cao nhất nếu sản phẩm có nhiều mức giá).
+## Statistics
+- **Amount of Data Collected:** 4665 products (as of the time of statistics).
+- **Crawl Rate:** About 8 products/minute (from 02:30:28 on 30/01/2024 to 09:14:28 on 30/01/2024).
 
-## Thống Kê
-- **Số Lượng Dữ Liệu Thu Thập:** 4665 sản phẩm (tính đến thời điểm thống kê).
-- **Tốc Độ Crawl:** Khoảng 8 sản phẩm/phút (từ 02:30:28 ngày 30/01/2024 đến 09:14:28 ngày 30/01/2024).
-
-## Hướng Dẫn Sử Dụng
-1. **Mở Trình Duyệt Edge:** Đăng nhập vào [shopee.vn](https://shopee.vn/).
-2. **Cài Đặt Autohotkey:** Tải và cài đặt [Autohotkey v2](https://www.autohotkey.com/).
-3. **Tải Dự Án:** Tải thư mục dự án từ Git về máy.
-4. **Tắt Extension Edge:** Tắt tất cả tiện ích mở rộng trên Edge để không ảnh hưởng đến quá trình crawl.
-5. **Đóng Các Cửa Sổ Edge:** Đóng tất cả cửa sổ Edge mở trước đó.
-6. **Chạy File Main.ahk:** Truy cập `\CrawlShopee\main.ahk` trong thư mục dự án và chạy file.
-7. **Không Tương Tác Khi Crawl:** Tránh tương tác với cửa sổ Edge trong quá trình thu thập dữ liệu.
-8. **Thoát Ứng Dụng:** Sử dụng tổ hợp phím `Ctrl+Shift+F3` để thoát ứng dụng.
+## Usage Instructions
+1. **Open Edge Browser:** Log into [shopee.vn](https://shopee.vn/).
+2. **Install Autohotkey:** Download and install [Autohotkey v2](https://www.autohotkey.com/).
+3. **Download the Project:** Download the project folder from Git to your computer.
+4. **Disable Edge Extensions:** Turn off all extensions in Edge to not interfere with the crawling process.
+5. **Close All Edge Windows:** Close all previously opened Edge windows.
+6. **Run Main.ahk File:** Navigate to `\CrawlShopee\main.ahk` in the project folder and run the file.
+7. **Do Not Interact During Crawling:** Avoid interacting with the Edge window while data is being collected.
+8. **Exit Application:** Use the `Ctrl+Shift+F3` key combination to exit the application.
